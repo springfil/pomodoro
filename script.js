@@ -83,4 +83,8 @@
     }
     }
 
-    START_BUTTON.addEventListener("click", startTimer);
+    START_BUTTON.addEventListener("click", () => {
+    startTimer();
+    const audio = new Audio("yamade.mp3");
+    audio.play();
+    });
