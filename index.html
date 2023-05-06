@@ -7,21 +7,28 @@
   </style>
   </head>
   <body>
-
+    <div id="timer-container">
       <div id="timer-buttons">
         <button id="pomodoro">Pomodoro</button>
         <button id="short-break">Short Break</button>
         <button id="long-break">Long Break</button>
       </div>
-
-      <div id="timer-container">
+      <div class="timer-container">
         <div id="timer">25:00</div>
+        <div class="progress-bar-container">
+          <div class="progress-bar html">
+            <progress id="html" max="1500" value="1500" ></progress>
+            <span id="progress-counter">25:00</span>
+          </div>
+        </div>
       </div>
-      
+    </div>
+     
       <div id="action-buttons">
         <button id="start">Start</button>
         <button id="stop" disabled>Stop</button>
       </div>
+   
     <script src="script.js"></script>
   </body>
 </html>
