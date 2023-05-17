@@ -1,241 +1,124 @@
-body {
-  background-color: #2c3e50;
-  font-family: -apple-system, system-ui, Helvetica, Arial, sans-serif;
-  margin: 30px auto;
-  display: flex;
-  align-items: center;
-  max-width: 600px;
-  flex-direction: column;
-}
+  body {
+    background-color: #2c3e50;
+    display: flex;
+    font-family: -apple-system, system-ui, Helvetica, Arial, sans-serif;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
 
-#timer-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+  .diagram {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
-#timer-buttons {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
+  #timer-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
 
-.timer-container {
-  display: flex;
-  flex-direction: row-reverse;;
-  justify-content: center;
-  align-items: center;
-  height: 190px;
-  gap: 2rem;
-}
+  #pomodoro,
+  #short-break,
+  #long-break {
+    background-color: #2d3741;
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+    transition: transform 0.5s ease-in-out;
+  }
 
-#timer {
-  font-family: "Courier New", Courier, monospace;
-  font-size: 4rem;
-  color: #000000;
-  margin-bottom: 1rem;
-  text-align: center;
-  text-shadow: 0 0 10px rgb(255 0 0);
-}
+  #pomodoro:hover,
+  #short-break:hover,
+  #long-break:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
+  }
 
-#action-buttons {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
+  #action-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
 
-#start,
-#stop {
-  margin: 0 10px;
-  margin-top: 20px;
-}
+  #start,
+  #stop {
+    margin: 0 10px;
+    margin-top: 20px;
+  }
 
-#start {
-  background-color: #1d643b;
-  color: white;
-  border: none;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: background-color 0.8s ease;
-}
+  #start {
+    background-color: #1d643b;
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.8s ease;
+  }
 
-#start:hover {
-  background-color: #2ecc71;
-}
+  #start:hover {
+    background-color: #2ecc71;
+  }
 
-#stop {
-  background-color: #741f16;
-  color: white;
-  border: none;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: background-color 0.8s ease;
-}
+  #stop {
+    background-color: #741f16;
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.8s ease;
+  }
 
-#stop:hover {
-  background-color: #c0392b;
-}
+  #stop:hover {
+    background-color: #c0392b;
+  }
 
-#pomodoro,
-#short-break,
-#long-break {
-  background-color: #2d3741;
-  color: white;
-  border: none;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: background-color 0.5s ease;
-  transition: transform 0.5s ease-in-out;
-}
+  #timer {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 3rem;
+    color: #000000;
+    margin-bottom: 0;
+    text-align: center;
+    text-shadow: 0 0 10px rgb(255 0 0);
+  }
 
-#pomodoro:hover,
-#short-break:hover,
-#long-break:hover {
-  background-color: #c0392b;
-  transform: scale(1.05);
-}
+  circle {
+    transition: all 0.1s linear;
+  }
 
-.progress-bar-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 2rem;
-  margin-bottom: 2rem; /* Добавляем новый отступ снизу */
-}
+  #c1 {
+    transition: all 1s linear;
+    stroke:  #741f16;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    fill: transparent;
+  }
 
-.progress-bar {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  #c2 {
+    transition: all 1s linear;
+    stroke: #c0392b;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    fill: transparent;
+  }
 
-@property --progress-value {
-  syntax: '<integer>';
-  inherits: false;
-  initial-value: 0;
-}
+  #timer {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    font-size: 36px;
 
-
-.progress-bar::before {
-  content: attr(data-timer) ;
-  counter-reset: percentage var(--progress-value);
-}
-
-@keyframes html-progress {
-  to { --progress-value: 100; }
-}
-
-.html {
-  background: 
-    radial-gradient(closest-side, #2c3e50 79%, transparent 80% 100%),
-    conic-gradient(#c0392b calc(var(--progress-value) * 1%), #741f16 calc(var(--progress-value) * 1%));
-  animation: html-progress 1500s linear forwards;
-  animation-play-state: paused;
-}
-
-
-.html::before {
-  animation: html-progress 1s 1 forwards;
-}
-
-progress {
-  visibility: hidden;
-  width: 0;
-  height: 0;
-}
-
-
-
-
-  /* @property --progress-value {
-    syntax: '<integer>';
-    inherits: false;
-    initial-value: 0;
-  } */
-/* .html {
-  --animation-duration: 15s;
-  --conic-gradient-value: 0deg;
-  
-  background: 
-    radial-gradient(closest-side, #2c3e50 79%, transparent 80% 100%),
-    conic-gradient(#c0392b var(--conic-gradient-value), #741f16 var(--conic-gradient-value));
-  animation: html-progress var(--animation-duration) linear forwards;
-  animation-play-state: paused;
-} */
-
-
-
-
-
-/* @property --current-timer {
-  syntax: '<integer>';
-  inherits: false;
-  initial-value: 0;
-} */
-
-
-
-
-/* .html {
-  --animation-duration: 15s;
-  
-  background: 
-    radial-gradient(closest-side, #2c3e50 79%, transparent 80% 100%),
-     conic-gradient(#c0392b calc(var(--progress-value) * 1%), #741f16 calc(var(--progress-value) * 1%));
-  animation: html-progress var(--animation-duration) linear forwards;
-  animation-play-state: paused;
-} */
-
-
-
-
-
-/* #progress-bar-output{
-  font-family: "Courier New", Courier, monospace;
-  font-size: 4rem;
-  color: #000000;
-  margin-bottom: 1rem;
-  text-align: center;
-  text-shadow: 0 0 10px rgb(255 0 0);
-} */
-
-/* animation: html-progress var(--current-timer)s linear forwards; */
-
-
-
-
-
-/* .html {
-  background: 
-    radial-gradient(closest-side, #2c3e50 79%, transparent 80% 100%),
-    conic-gradient(#c0392b calc(var(--progress-value) * 1%), #741f16 calc(var(--progress-value) * 1%));
-  animation-play-state: paused;
-}
-
-.html[data-timer="pomodoro"] {
-  animation-duration: 1500s;
-}
-
-.html[data-timer="short-break"] {
-  animation-duration: 300s;
-}
-
-.html[data-timer="long-break"] {
-  animation-duration: 900s;
-} */
-
-/* .html {
-  --animation-duration: 15s;
-  
-  background: 
-    radial-gradient(closest-side, #2c3e50 79%, transparent 80% 100%),
-     conic-gradient(#c0392b calc(var(--progress-value) * 1%), #741f16 calc(var(--progress-value) * 1%));
-  animation: html-progress var(--animation-duration) linear forwards;
-  animation-play-state: paused;
-} */
+  }
+  svg {
+    position: relative;
+  }
