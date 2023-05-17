@@ -14,8 +14,8 @@ const timers = {
 };
 
 let currentTimer = timers["pomodoro"];
+let circleLeft = timers["pomodoro"];
 let timeLeft = null;
-let circleLeft = null;
 let timerId = null;
 
 function updateTimer() {
